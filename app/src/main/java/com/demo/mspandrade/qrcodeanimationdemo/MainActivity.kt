@@ -56,25 +56,17 @@ class MainActivity : AppCompatActivity(), QRCodeReaderView.OnQRCodeReadListener 
     private fun initScannerBarAnimation() {
 
         val vto = scannerLayout.viewTreeObserver
-        vto.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
-            override fun onGlobalLayout() {
-                scannerLayout.viewTreeObserver.removeGlobalOnLayoutListener(this)
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    scannerLayout.viewTreeObserver.removeGlobalOnLayoutListener(this)
-                } else {
-                    scannerLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                }
+        vto.addOnGlobalLayoutListener{
 
-                val destination = scannerBar.y + scannerLayout.height - scannerBar.height
+            val destination = scannerBar.y + scannerLayout.height - scannerBar.height
 
-                val animator = ObjectAnimator.ofFloat(scannerBar, "translationY", scannerBar.y, destination)
+            val animator = ObjectAnimator.ofFloat(scannerBar, "translationY", scannerBar.y, destination)
 
-                animator.repeatMode = ValueAnimator.REVERSE
-                animator.repeatCount = ValueAnimator.INFINITE
-                animator.interpolator = AccelerateDecelerateInterpolator()
-                animator.duration = 1000
-                animator.start()
-            }
-        })
+            animator.repeatMode = ValueAnimator.REVERSE
+            animator.repeatCount = ValueAnimator.INFINITE
+            animator.interpolator = AccelerateDecelerateInterpolator()
+            animator.duration = 1000
+            animator.start()
+        }
     }
 }
